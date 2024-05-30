@@ -1,32 +1,45 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { TextInput, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, FlatList } from 'react-native';
 
 export default function App() {
 
-  const [name, setName] = useState('James')
-  const [age, setAge] = useState('30')
-
+  const [people, setPeople] = useState([
+    {name: 'Shaun', id: '1'},
+    {name: 'Yoshi', id: '2'},
+    {name: 'Mario', id: '3'},
+    {name: 'Luigi', id: '4'},
+    {name: 'Peach', id: '5'},
+    {name: 'Toad', id: '6'},
+    {name: 'Bowser', id: '7'},
+    
+  ])
   
 
   return (
     <View style={styles.container}>
-      <Text>Enter name:</Text>
-      <TextInput
-        style={styles.input}
-        placeholder='name'
-        onChangeText={(val)=>setName(val)}
+      <FlatList
+        numColumns={2}
+        keyExtractor={(item)=>item.id}
+        data={people}
+        renderItem={({ item }) => {
+          return (            
+            <Text style={styles.item}>{item.key}.{item.name}</Text>         
+          )
+        }}
       />
-      <Text>Enter age:</Text>
-      <TextInput
-        keyboardType='numeric'
-        style={styles.input}
-        placeholder='age'
-        onChangeText={(val)=>setAge(val)}
-      />
-      <Text>name:{name} age:{ age}</Text>
-      <StatusBar style="auto" />
-      
+
+
+      {/* <ScrollView>
+      {people.map((item, index, arrray) => {
+        return (
+          <View key={item.key}>
+            <Text style={styles.item}>{item.key}.{item.name}</Text>            
+          </View>
+        )
+      })}
+        <StatusBar style="auto" />      
+        </ScrollView> */}
     </View>
   );
 }
@@ -34,15 +47,19 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: 'purple',
+    paddingTop: 40,
+    paddingHorizontal: 20
+    // alignItems: 'center',
+    // justifyContent: 'center',
   },  
-  input: {
-    borderWidth: 1,
-    borderColor: '#777',
-    padding: 8,
-    margin: 10,
-    width: 200,
-  }
+  item: {
+    marginTop: 24,
+    padding: 30,
+    backgroundColor: 'yellow',
+    fontSize: 24,
+    marginHorizontal: 10,
+    marginTop:24
+
+ }
 });
