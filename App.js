@@ -24,7 +24,7 @@ export default function App() {
         data={people}
         renderItem={({ item }) => {
           return (            
-            <Text style={styles.item}>{item.key}.{item.name}</Text>         
+            <Text style={styles.item}>{item.id}.{item.name}</Text>         
           )
         }}
       />
