@@ -1,45 +1,32 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, View, FlatList } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import Headers from './components/Headers';
 
 export default function App() {
 
-  const [people, setPeople] = useState([
-    {name: 'Shaun', id: '1'},
-    {name: 'Yoshi', id: '2'},
-    {name: 'Mario', id: '3'},
-    {name: 'Luigi', id: '4'},
-    {name: 'Peach', id: '5'},
-    {name: 'Toad', id: '6'},
-    {name: 'Bowser', id: '7'},
-    
-  ])
-  
+  const [todos, setTodos] = useState([
+    { text: 'buy coffee', key: '1' },
+    { text: 'create an app', key: '2' },
+    { text: 'play on the switch', key: '3' }
+  ]);
 
   return (
     <View style={styles.container}>
-      <FlatList
-        numColumns={2}
-        keyExtractor={(item)=>item.id}
-        data={people}
-        renderItem={({ item }) => {
-          return (            
-            <Text style={styles.item}>{item.id}.{item.name}</Text>         
-          )
-        }}
-      />
-
-
-      {/* <ScrollView>
-      {people.map((item, index, arrray) => {
-        return (
-          <View key={item.key}>
-            <Text style={styles.item}>{item.key}.{item.name}</Text>            
-          </View>
-        )
-      })}
-        <StatusBar style="auto" />      
-        </ScrollView> */}
+      <Headers/>
+      <View style={styles.content}>
+        {/* to form */}
+        <View style={styles.list}>
+          <FlatList
+            data={todos}
+            renderItem={({ item }) => {
+              return (
+                <Text>{item.text}</Text>
+              )
+            }}
+          />
+        </View>
+      </View>
     </View>
   );
 }
@@ -47,19 +34,14 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'purple',
-    paddingTop: 40,
-    paddingHorizontal: 20
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    backgroundColor: '#fff',
+   
   },  
-  item: {
-    marginTop: 24,
-    padding: 30,
-    backgroundColor: 'yellow',
-    fontSize: 24,
-    marginHorizontal: 10,
-    marginTop:24
+  content: {
+    padding: 40,
 
- }
+  },
+  list: {
+    marginTop: 20,
+  }
 });
