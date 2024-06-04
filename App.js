@@ -2,6 +2,10 @@ import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
 import { ScrollView, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
 import Headers from './components/Headers';
+import TodoItem from './components/TodoItem';
+import AddTodo from './components/AddTodo';
+
+
 
 export default function App() {
 
@@ -11,17 +15,24 @@ export default function App() {
     { text: 'play on the switch', key: '3' }
   ]);
 
+  const pressHandler = (key) => {
+    setTodos((prevTodos) => {
+      return prevTodos.filter(todo=>todo.key!=key)
+    })
+  }
+  
+
   return (
     <View style={styles.container}>
       <Headers/>
       <View style={styles.content}>
-        {/* to form */}
+        <AddTodo/>
         <View style={styles.list}>
           <FlatList
             data={todos}
             renderItem={({ item }) => {
               return (
-                <Text>{item.text}</Text>
+                <TodoItem item={item} pressHandler={pressHandler} />
               )
             }}
           />
@@ -30,6 +41,8 @@ export default function App() {
     </View>
   );
 }
+
+
 
 const styles = StyleSheet.create({
   container: {

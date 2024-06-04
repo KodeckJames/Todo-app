@@ -5,7 +5,7 @@ import { ScrollView, StyleSheet, Text, View, FlatList, TouchableOpacity } from '
 const Headers = () => {
   return (
       <View style={styles.header}>
-          <Text style={styles.title}>My todos</Text>
+          <Text style={styles.title}>My Todos</Text>
       </View>
   )
 }
@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     header: {
         height: 80,
         paddingTop: 38,
-        backgroundColor: 'coral'
+        backgroundColor: 'purple'
     },
     title: {
         textAlign: 'center',
