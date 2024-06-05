@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { StatusBar } from 'expo-status-bar';
-import { ScrollView, StyleSheet, Text, View, FlatList, TouchableOpacity } from 'react-native';
+import { ScrollView, StyleSheet, Text, View, FlatList, TouchableOpacity, Alert } from 'react-native';
 import Headers from './components/Headers';
 import TodoItem from './components/TodoItem';
 import AddTodo from './components/AddTodo';
@@ -20,13 +20,29 @@ export default function App() {
       return prevTodos.filter(todo=>todo.key!=key)
     })
   }
+
+  const submitHandler = (text) => {
+
+    if (text.length > 3) {
+      setTodos ((todos) => {
+        return[
+          { text: text, key: Math.random().toString() },
+          ...todos
+        ]
+      })
+    } else {
+      Alert.alert('OOPS!', 'Todos must be over 3 chars long', [{text:'Sawa Mkuu!', onPress: ()=> console.log('alert closed')}])
+    }
+
+    
+  }
   
 
   return (
     <View style={styles.container}>
       <Headers/>
       <View style={styles.content}>
-        <AddTodo/>
+        <AddTodo submitHandler={submitHandler} />
         <View style={styles.list}>
           <FlatList
             data={todos}
